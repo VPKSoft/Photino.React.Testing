@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Photino.React.Testing": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

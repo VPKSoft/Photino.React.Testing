@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<Platforms>AnyCPU</Platforms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="Resources\wwwroot\.gitkeep" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.0" />
+		<PackageReference Include="Photino.NET" Version="2.3.0" />
+		<PackageReference Include="Photino.NET.Server" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MySourceFiles Include="./dist\**\*.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="VPKSoftIcon.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<Target Name="CopyFiles" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' == 'Release' ">
+		<Exec WorkingDirectory="./" Command="npm run build" />
+		<Copy SourceFiles="@(MySourceFiles)" DestinationFiles="./Resources/wwwroot/%(RecursiveDir)%(Filename)%(Extension)" />
+	</Target>
+</Project>

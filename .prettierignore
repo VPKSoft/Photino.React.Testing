@@ -1,0 +1,8 @@
+# Ignore artifacts:
+bin
+obj
+node_modules
+wwwroot
+
+# Ignore all HTML files:
+*.html
